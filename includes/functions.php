@@ -57,7 +57,7 @@ function login($email, $password, $mysqli) {
         $stmt->fetch();
 
         // hash the password with the unique salt.
-        $password = hash('sha512', $password . $salt);
+        $password = hash('md5', $password . $salt);
         if ($stmt->num_rows == 1) {
             // If the user exists we check if the account is locked
             // from too many login attempts 
@@ -160,7 +160,7 @@ function login_check($mysqli) {
                 // If the user exists get variables from result.
                 $stmt->bind_result($password);
                 $stmt->fetch();
-                $login_check = hash('sha512', $password . $user_browser);
+                $login_check = hash('md5', $password . $user_browser);
 
                 if ($login_check == $login_string) {
                     // Logged In!!!! 
